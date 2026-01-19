@@ -1,0 +1,56 @@
+name: 'Aviation Compliance Checker'
+description: 'Automated FAA compliance checking for aviation maintenance logs, pilot logbooks, and aircraft documentation'
+author: 'Ashish Sharda'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  files:
+    description: 'Comma-separated list of file patterns to check (e.g., logs/**/*.md,docs/**/*.txt)'
+    required: false
+    default: '**/*.md,**/*.txt,**/*.json,**/*.log'
+  
+  check-maintenance-logs:
+    description: 'Enable maintenance log compliance checks (14 CFR Part 43)'
+    required: false
+    default: 'true'
+  
+  check-pilot-logs:
+    description: 'Enable pilot logbook entry checks (14 CFR Part 61)'
+    required: false
+    default: 'true'
+  
+  check-airworthiness:
+    description: 'Enable airworthiness documentation checks'
+    required: false
+    default: 'true'
+  
+  check-weight-balance:
+    description: 'Enable weight and balance documentation checks'
+    required: false
+    default: 'true'
+  
+  fail-on-violation:
+    description: 'Fail the action if compliance violations are found'
+    required: false
+    default: 'false'
+  
+  github-token:
+    description: 'GitHub token for posting PR comments'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  violations-found:
+    description: 'Number of compliance violations found'
+  
+  compliance-status:
+    description: 'Overall compliance status (PASS/FAIL)'
+  
+  report-path:
+    description: 'Path to the detailed compliance report'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

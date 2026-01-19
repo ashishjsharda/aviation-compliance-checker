@@ -1,0 +1,37 @@
+{
+  "name": "aviation-compliance-checker",
+  "version": "1.0.0",
+  "description": "GitHub Action for automated FAA aviation compliance checking",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "package": "npm run build"
+  },
+  "keywords": [
+    "aviation",
+    "compliance",
+    "faa",
+    "maintenance",
+    "logbook",
+    "github-action"
+  ],
+  "author": "Ashish Sharda",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "glob": "^10.3.10",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/js-yaml": "^4.0.9",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vercel/ncc": "^0.38.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}

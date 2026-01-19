@@ -1,0 +1,62 @@
+name: Aviation Compliance CI
+
+on:
+  pull_request:
+    paths:
+      - 'logs/**'
+      - 'maintenance/**'
+      - 'aircraft-docs/**'
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  aviation-compliance:
+    name: Check Aviation Compliance
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Aviation Compliance Check
+        id: compliance
+        uses: yourusername/aviation-compliance-checker@v1
+        with:
+          files: 'logs/**/*.md,maintenance/**/*.txt,aircraft-docs/**/*'
+          check-maintenance-logs: true
+          check-pilot-logs: true
+          check-airworthiness: true
+          check-weight-balance: true
+          fail-on-violation: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Compliance Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: aviation-compliance-report
+          path: aviation-compliance-report.md
+
+      - name: Comment PR with Report
+        if: github.event_name == 'pull_request' && steps.compliance.outputs.violations-found > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('aviation-compliance-report.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+      - name: Check Compliance Status
+        if: steps.compliance.outputs.compliance-status == 'FAIL'
+        run: |
+          echo "⚠️ Aviation compliance violations found!"
+          echo "Violations: ${{ steps.compliance.outputs.violations-found }}"
+          echo "Please review the compliance report and fix violations."
