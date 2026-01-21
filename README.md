@@ -240,6 +240,4 @@ Regulations based on:
 - [14 CFR Part 61](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-D/part-61)
 - [14 CFR Part 91](https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91)
 
----
 
-**Made with ✈️ by pilots, for pilots**
