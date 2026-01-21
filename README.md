@@ -4,6 +4,7 @@ Automated FAA compliance checking for aviation maintenance logs, pilot logbooks,
 
 [![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Aviation%20Compliance%20Checker-blue.svg)](https://github.com/marketplace/actions/aviation-compliance-checker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI Status](https://github.com/ashishjsharda/aviation-compliance-checker/actions/workflows/example.yml/badge.svg)](https://github.com/ashishjsharda/aviation-compliance-checker/actions)
 
 ## 🎯 Features
 
